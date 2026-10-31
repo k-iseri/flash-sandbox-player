@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5f7fa"/>
+      <stop offset="1" stop-color="#e3ebf7"/>
+    </linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#c9d3e3"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <!-- プレイヤー風のカード -->
+  <rect x="80" y="110" width="500" height="410" rx="22" fill="#ffffff" stroke="#d9dee7" stroke-width="2"/>
+  <rect x="110" y="140" width="440" height="300" rx="14" fill="#101418"/>
+  <rect x="110" y="170" width="440" height="240" fill="#e6f0ff"/>
+  <rect x="150" y="200" width="200" height="140" fill="#ff3b3b"/>
+  <circle cx="420" cy="290" r="44" fill="#2f6fed"/>
+  <polygon points="405,265 445,290 405,315" fill="#ffffff"/>
+  <rect x="110" y="462" width="150" height="30" rx="15" fill="#2eaa5f"/>
+  <text x="185" y="483" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">問題なし · OK</text>
+  <rect x="272" y="462" width="110" height="30" rx="15" fill="#7c5cd6"/>
+  <text x="327" y="483" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">同意が必要</text>
+  <rect x="394" y="462" width="120" height="30" rx="15" fill="#e24b4b"/>
+  <text x="454" y="483" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">実行しません</text>
+
+  <!-- テキスト -->
+  <text x="640" y="230" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="64" font-weight="700" fill="#1f2633">SWF Sandbox</text>
+  <text x="640" y="305" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="64" font-weight="700" fill="#1f2633">Player</text>
+  <text x="642" y="360" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="26" fill="#6b7686">powered by Ruffle</text>
+  <text x="642" y="430" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="27" fill="#1f2633">Flash (SWF) をブラウザで安全に再生</text>
+  <text x="642" y="472" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="22" fill="#6b7686">検査してから、通信を遮断したサンドボックスで実行</text>
+  <text x="642" y="506" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="22" fill="#6b7686">Inspect first, then play in a network-isolated sandbox</text>
+</svg>
