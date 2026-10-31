@@ -25,6 +25,7 @@ const stage = $("stage");
 const placeholder = $("stagePlaceholder");
 const statusEl = $("status");
 const fullscreenBtn = $("fullscreenBtn");
+const audioHint = $("audioHint");
 const langSelect = $("langSelect");
 // フォント設定 UI
 const fontPanel = $("fontPanel");
@@ -572,6 +573,7 @@ function destroyFrame() {
   placeholder.classList.remove("hidden");
   stopBtn.classList.add("hidden");
   fullscreenBtn.classList.add("hidden");
+  audioHint.classList.add("hidden");
 }
 
 function createFrame() {
@@ -605,6 +607,11 @@ window.addEventListener("message", (e) => {
       break;
     case "error":
       setStatus("st.playError", { msg: String(msg.message).slice(0, 300) }, true);
+      break;
+    case "audio":
+      // 音声コンテキストが suspended の間は、再生画面をタップするよう案内する
+      audioHint.textContent = t(navigator.maxTouchPoints > 0 ? "st.audioSuspendedTouch" : "st.audioSuspended");
+      audioHint.classList.toggle("hidden", !msg.suspended);
       break;
     default:
       break;

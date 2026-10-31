@@ -199,6 +199,8 @@ S.ja = {
   "gp.dpad-left": "十字キー 左",
   "gp.dpad-right": "十字キー 右",
   "btn.fullscreen": "全画面",
+  "st.audioSuspended": "音声はまだ有効になっていません。再生画面を一度クリックすると有効になります。",
+  "st.audioSuspendedTouch": "音声はまだ有効になっていません。再生画面を一度タップすると有効になります。iPhone / iPad で音が出ない場合は、本体横のサイレントスイッチと音量も確認してください。",
 };
 
 S.en = {
@@ -385,6 +387,8 @@ S.en = {
   "gp.dpad-left": "D-pad left",
   "gp.dpad-right": "D-pad right",
   "btn.fullscreen": "Fullscreen",
+  "st.audioSuspended": "Audio is not enabled yet. Click the player once to enable it.",
+  "st.audioSuspendedTouch": "Audio is not enabled yet. Tap the player once to enable it. On iPhone / iPad, also check the silent switch and the volume.",
 };
 
 S["zh-Hans"] = {
@@ -571,6 +575,8 @@ S["zh-Hans"] = {
   "gp.dpad-left": "方向键 左",
   "gp.dpad-right": "方向键 右",
   "btn.fullscreen": "全屏",
+  "st.audioSuspended": "音频尚未启用。点击一次播放画面即可启用。",
+  "st.audioSuspendedTouch": "音频尚未启用。点按一次播放画面即可启用。iPhone / iPad 没有声音时，请同时检查静音开关和音量。",
 };
 
 S["zh-Hant"] = {
@@ -757,6 +763,8 @@ S["zh-Hant"] = {
   "gp.dpad-left": "方向鍵 左",
   "gp.dpad-right": "方向鍵 右",
   "btn.fullscreen": "全螢幕",
+  "st.audioSuspended": "音訊尚未啟用。點一下播放畫面即可啟用。",
+  "st.audioSuspendedTouch": "音訊尚未啟用。點一下播放畫面即可啟用。iPhone / iPad 沒有聲音時，請同時檢查靜音開關和音量。",
 };
 
 S.ko = {
@@ -943,6 +951,8 @@ S.ko = {
   "gp.dpad-left": "십자키 왼쪽",
   "gp.dpad-right": "십자키 오른쪽",
   "btn.fullscreen": "전체 화면",
+  "st.audioSuspended": "오디오가 아직 켜지지 않았습니다. 재생 화면을 한 번 클릭하면 켜집니다.",
+  "st.audioSuspendedTouch": "오디오가 아직 켜지지 않았습니다. 재생 화면을 한 번 탭하면 켜집니다. iPhone / iPad에서 소리가 나지 않으면 무음 스위치와 음량도 확인하세요.",
 };
 
 S.es = {
@@ -1129,6 +1139,8 @@ S.es = {
   "gp.dpad-left": "Cruceta izquierda",
   "gp.dpad-right": "Cruceta derecha",
   "btn.fullscreen": "Pantalla completa",
+  "st.audioSuspended": "El audio aún no está activado. Haz clic una vez en el reproductor para activarlo.",
+  "st.audioSuspendedTouch": "El audio aún no está activado. Toca una vez el reproductor para activarlo. En iPhone / iPad, comprueba también el interruptor de silencio y el volumen.",
 };
 
 S.fr = {
@@ -1315,6 +1327,8 @@ S.fr = {
   "gp.dpad-left": "Croix gauche",
   "gp.dpad-right": "Croix droite",
   "btn.fullscreen": "Plein écran",
+  "st.audioSuspended": "Le son n'est pas encore activé. Cliquez une fois sur le lecteur pour l'activer.",
+  "st.audioSuspendedTouch": "Le son n'est pas encore activé. Touchez une fois le lecteur pour l'activer. Sur iPhone / iPad, vérifiez aussi le commutateur silencieux et le volume.",
 };
 
 S.de = {
@@ -1501,6 +1515,8 @@ S.de = {
   "gp.dpad-left": "Steuerkreuz links",
   "gp.dpad-right": "Steuerkreuz rechts",
   "btn.fullscreen": "Vollbild",
+  "st.audioSuspended": "Der Ton ist noch nicht aktiviert. Klicken Sie einmal auf den Player, um ihn zu aktivieren.",
+  "st.audioSuspendedTouch": "Der Ton ist noch nicht aktiviert. Tippen Sie einmal auf den Player, um ihn zu aktivieren. Prüfen Sie auf iPhone / iPad auch den Stummschalter und die Lautstärke.",
 };
 
 S.pt = {
@@ -1687,6 +1703,8 @@ S.pt = {
   "gp.dpad-left": "Direcional esquerda",
   "gp.dpad-right": "Direcional direita",
   "btn.fullscreen": "Tela cheia",
+  "st.audioSuspended": "O áudio ainda não está ativado. Clique uma vez no player para ativá-lo.",
+  "st.audioSuspendedTouch": "O áudio ainda não está ativado. Toque uma vez no player para ativá-lo. No iPhone / iPad, verifique também a chave de silêncio e o volume.",
 };
 
 S.ru = {
@@ -1873,6 +1891,8 @@ S.ru = {
   "gp.dpad-left": "Крестовина влево",
   "gp.dpad-right": "Крестовина вправо",
   "btn.fullscreen": "Во весь экран",
+  "st.audioSuspended": "Звук ещё не включён. Нажмите один раз на плеер, чтобы включить его.",
+  "st.audioSuspendedTouch": "Звук ещё не включён. Коснитесь плеера один раз, чтобы включить его. На iPhone / iPad также проверьте переключатель беззвучного режима и громкость.",
 };
 
 export const STRINGS = S;

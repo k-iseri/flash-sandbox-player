@@ -12,6 +12,23 @@
   const message = document.getElementById("message");
   let player = null;
 
+  // iOS 17+ / Safari: Web Audio をサイレントスイッチの影響を受けない「再生」カテゴリにする（Ruffle も同じ設定をするが先に行う）
+  try { if ("audioSession" in navigator) navigator.audioSession.type = "playback"; } catch { /* ignore */ }
+
+  // Ruffle のミュート解除オーバーレイ（音声コンテキストが suspended の間だけ表示される）を監視し、親に状態を知らせる
+  let audioTimer = null;
+  function watchAudio() {
+    if (audioTimer) clearInterval(audioTimer);
+    let last = null, ticks = 0;
+    audioTimer = setInterval(() => {
+      const ov = player?.shadowRoot?.querySelector("#unmute-overlay");
+      const suspended = !!ov && ov.style.display === "block";
+      if (suspended !== last) { last = suspended; post({ type: "audio", suspended }); }
+      if (!suspended && ticks > 2) { clearInterval(audioTimer); audioTimer = null; }
+      if (++ticks > 600) { clearInterval(audioTimer); audioTimer = null; }
+    }, 500);
+  }
+
   // 表示言語（親ページが ?lang= で渡す。文言は 3 つだけなのでここに持つ）
   const MSG = {
     ja: { loading: "読み込み中…", failed: "再生に失敗しました: {msg}", ruffle: "Ruffle の読み込みに失敗しました", init: "プレイヤーを初期化しています…" },
@@ -168,6 +185,7 @@
         await playBytes(msg.data, typeof msg.name === "string" ? msg.name : "movie.swf", msg.fontConfig);
         showMessage("");
         post({ type: "loaded" });
+        watchAudio();
       } catch (err) {
         showMessage(m("failed", { msg: err?.message ?? err }), true);
         post({ type: "error", message: String(err?.message ?? err) });
