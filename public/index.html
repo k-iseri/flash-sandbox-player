@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja" class="i18n-pending">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>SWF Sandbox Player</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-text">
+      <h1>SWF Sandbox Player <span class="sub">powered by Ruffle</span></h1>
+      <p class="tagline" data-i18n="tagline">SWF ファイルをドラッグ＆ドロップすると、検査してから安全な設定で再生します。</p>
+    </div>
+    <label class="langbox">
+      <span class="muted small" data-i18n="lang.label">言語</span>
+      <select id="langSelect" aria-label="Language"></select>
+    </label>
+  </header>
+
+  <main class="layout">
+    <section class="left">
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="SWF ファイルをここにドロップ" data-i18n-aria="dz.aria">
+        <div class="dz-icon" aria-hidden="true">⬇</div>
+        <p class="dz-title" data-i18n="dz.title">ここに .swf をドロップ</p>
+        <p class="dz-or" data-i18n="dz.or">または</p>
+        <label class="btn">
+          <span data-i18n="dz.select">ファイルを選択</span>
+          <input id="fileInput" type="file" accept=".swf,application/x-shockwave-flash" hidden>
+        </label>
+      </div>
+
+      <section id="result" class="card hidden" aria-live="polite">
+        <div class="result-head">
+          <span id="verdictBadge" class="badge"></span>
+          <span id="fileName" class="filename"></span>
+        </div>
+        <table class="info" id="infoTable"></table>
+        <ul id="findings" class="findings"></ul>
+        <div class="actions">
+          <button id="playWarnBtn" class="btn warn hidden" data-i18n="btn.playWarn">警告を確認したうえで再生する</button>
+          <button id="consentBtn" class="btn consent hidden" data-i18n="btn.consent">URL を開く処理（getURL / navigateToURL）を無効化した状態で再生することに同意する</button>
+          <button id="stopBtn" class="btn ghost hidden" data-i18n="btn.stop">停止して閉じる</button>
+        </div>
+      </section>
+
+      <details id="fontPanel" class="card fontpanel">
+        <summary><span data-i18n="fp.title">フォント設定</span> <span id="fontSummary" class="muted small"></span></summary>
+        <div class="fp-section">
+          <div class="fp-label" data-i18n="fp.rendererLabel">デバイスフォント（埋め込まれていないフォント）の描画</div>
+          <label class="radio"><input type="radio" name="renderer" value="canvas"> <span data-i18n="fp.rendererCanvas">ブラウザのフォントを使う（推奨：PC にインストール済みのフォントで描画）</span></label>
+          <label class="radio"><input type="radio" name="renderer" value="embedded"> <span data-i18n="fp.rendererEmbedded">Ruffle 内蔵（下で読み込んだフォントファイルだけを使う）</span></label>
+        </div>
+        <div class="fp-section">
+          <div class="fp-label"><span data-i18n="fp.filesLabel">フォントファイル</span> <span class="muted small" data-i18n="fp.filesHint">.ttf / .otf / .ttc をこの画面にドロップするか、下のボタンで追加</span></div>
+          <ul id="fontList" class="fontlist"></ul>
+          <label class="btn ghost small"><span data-i18n="btn.addFont">フォントファイルを追加</span><input id="fontInput" type="file" accept=".ttf,.otf,.ttc" multiple hidden></label>
+        </div>
+        <div class="fp-section">
+          <div class="fp-label"><span data-i18n="fp.defaultLabel">既定フォント</span> <span class="muted small" data-i18n="fp.defaultHint">SWF 側のフォントが見つからないときに使う</span></div>
+          <div id="fontSlots" class="slots"></div>
+        </div>
+        <div class="fp-section hidden" id="encodingSection">
+          <div class="fp-label"><span data-i18n="fp.encodingLabel">文字コード</span> <span class="muted small" data-i18n="fp.encodingHint">SWF バージョン 5 以前</span></div>
+          <p class="muted small" id="encodingHint"></p>
+          <label class="consent-check"><input type="checkbox" id="sjisConvert"> <span data-i18n="fp.sjisConsent">文字列を Shift_JIS（日本語 Windows）として読み、UTF-8 に変換して再生することに同意する（SWF バージョンを 6 として扱います。ファイルは変更しません）</span></label>
+        </div>
+        <div class="fp-section hidden" id="mappingSection">
+          <div class="fp-label"><span data-i18n="fp.mappingLabel">この SWF のフォント名の置き換え</span> <span class="muted small" data-i18n="fp.mappingHint">右に新しい名前（英語名）を入力</span></div>
+          <div id="mappingList" class="slots"></div>
+          <button id="autoMapBtn" class="btn ghost small" type="button" data-i18n="fp.autoMap">自動で割り当て</button>
+          <label class="consent-check"><input type="checkbox" id="rewriteConsent"> <span data-i18n="fp.rewriteConsent">元の SWF 内のフォント名を置き換えて再生することに同意する（ファイルは変更しません）</span></label>
+          <datalist id="fontNameOptions"></datalist>
+        </div>
+        <div class="fp-section">
+          <button id="applyFontBtn" class="btn hidden" data-i18n="btn.apply">この設定で再生し直す</button>
+          <span id="applyHint" class="muted small"></span>
+        </div>
+      </details>
+
+      <details id="controlPanel" class="card fontpanel">
+        <summary><span data-i18n="ctl.title">操作設定</span> <span id="controlSummary" class="muted small"></span></summary>
+        <div class="fp-section">
+          <div class="fp-label"><span data-i18n="ctl.keymapLabel">キーボードの置き換え</span> <span class="muted small" data-i18n="ctl.keymapHint">押したキーを別のキーとして SWF に伝えます（例: WASD を矢印キーに）</span></div>
+          <div id="keymapList" class="keymap"></div>
+          <div class="btnrow">
+            <button id="keymapAdd" class="btn ghost small" type="button" data-i18n="ctl.addRow">行を追加</button>
+            <button id="presetWasd" class="btn ghost small" type="button" data-i18n="ctl.presetWasd">WASD → 矢印キー</button>
+            <button id="presetZx" class="btn ghost small" type="button" data-i18n="ctl.presetZx">Z / X → Space / Enter</button>
+            <button id="clearKeys" class="linkbtn" type="button" data-i18n="ctl.clearKeys">すべて消去</button>
+          </div>
+        </div>
+        <div class="fp-section">
+          <div class="fp-label"><span data-i18n="ctl.gamepadLabel">ゲームパッド</span> <span class="muted small" data-i18n="ctl.gamepadHint">各ボタンに SWF へ伝えるキーを割り当てます（ブラウザが認識するパッドが対象）</span></div>
+          <div id="gamepadList" class="slots"></div>
+          <div class="btnrow">
+            <button id="presetPad" class="btn ghost small" type="button" data-i18n="ctl.presetPad">標準の割り当て</button>
+            <button id="clearPad" class="linkbtn" type="button" data-i18n="ctl.clearPad">すべて消去</button>
+          </div>
+        </div>
+      </details>
+
+      <details class="card policy">
+        <summary data-i18n="policy.title">実行ポリシー（クリックで展開）</summary>
+        <ul>
+          <li data-i18n-html="policy.block"></li>
+          <li data-i18n-html="policy.consent"></li>
+          <li data-i18n-html="policy.warn"></li>
+          <li data-i18n-html="policy.runtime"></li>
+          <li data-i18n="policy.local"></li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="right">
+      <div id="stage" class="stage">
+        <div id="stagePlaceholder" class="stage-placeholder">
+          <p data-i18n="stage.placeholder">ここに再生画面が表示されます</p>
+        </div>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+  </main>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

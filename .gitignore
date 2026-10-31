@@ -1,0 +1,5 @@
+node_modules/
+test/samples/
+fonts/*
+!fonts/README.md
+!fonts/BIZ-UDGothicR.ttc

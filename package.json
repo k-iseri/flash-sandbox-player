@@ -1,0 +1,15 @@
+{
+  "name": "swf-sandbox-player",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ruffle を使った SWF サンドボックスプレイヤー（ネットワーク/Cookie アクセスを含む SWF は実行しない）",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/scanner.test.js"
+  },
+  "dependencies": {
+    "@ruffle-rs/ruffle": "latest",
+    "lzma": "^2.3.2"
+  }
+}
