@@ -582,6 +582,7 @@ function destroyFrame() {
 function setPseudoFullscreen(on) {
   stage.classList.toggle("pseudo-full", on);
   document.body.classList.toggle("pseudo-full", on);
+  document.documentElement.classList.toggle("pseudo-full", on);
 }
 
 function createFrame() {
@@ -619,8 +620,9 @@ window.addEventListener("message", (e) => {
       break;
     case "audio":
       // 音声コンテキストが suspended の間は、再生画面をタップするよう案内する
-      audioHint.textContent = t(navigator.maxTouchPoints > 0 ? "st.audioSuspendedTouch" : "st.audioSuspended");
-      audioHint.classList.toggle("hidden", !msg.suspended);
+      // PC では Ruffle 自身の「クリックでミュートを解除」で足りるので、タッチ端末（サイレントスイッチの案内が必要）だけに出す
+      audioHint.textContent = t("st.audioSuspendedTouch");
+      audioHint.classList.toggle("hidden", !(msg.suspended && navigator.maxTouchPoints > 0));
       break;
     default:
       break;
@@ -771,6 +773,9 @@ function applyLayout() {
   }
 }
 mobileMq.addEventListener("change", applyLayout);
+window.matchMedia("(orientation: landscape)").addEventListener("change", (e) => {
+  if (e.matches && layoutMode === "mobile" && frame) setTimeout(() => stage.scrollIntoView({ block: "start" }), 150);
+});
 applyLayout();
 
 // ---- 言語 -----------------------------------------------------------------------

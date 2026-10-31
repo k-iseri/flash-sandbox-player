@@ -93,8 +93,6 @@ body {
 .dz-icon { font-size: 30px; color: var(--accent); line-height: 1; }
 .dz-title { font-size: 16px; font-weight: 600; margin: 6px 0 2px; }
 .dz-or { color: var(--muted); margin: 2px 0 8px; font-size: 13px; }
-.dz-sample { margin: 10px 0 0; font-size: 12px; }
-.dz-sample a { color: var(--muted); text-decoration: underline; }
 
 .btn {
   display: inline-block;
@@ -245,6 +243,8 @@ body {
   background: rgba(255, 255, 255, .92); color: #1f2633; cursor: pointer; white-space: nowrap;
 }
 .stage.pseudo-full { position: fixed; inset: 0; z-index: 1000; width: auto; height: 100vh; height: 100dvh; max-height: none; aspect-ratio: auto; border: 0; border-radius: 0; background: #000; }
+.stage.pseudo-full iframe { background: #000; }
+html.pseudo-full, body.pseudo-full { background: #000; }
 .stage.pseudo-full .stage-exit { display: inline-block; }
 body.pseudo-full { overflow: hidden; }
 .audiohint {
@@ -300,4 +300,9 @@ body.pseudo-full { overflow: hidden; }
   .slot select, .slot input[type=text], .keycap, .langbox select { font-size: 16px; } /* iOS の自動ズームを防ぐ */
   .slots { grid-template-columns: minmax(96px, 40%) 1fr; }
   .info td:first-child { width: 96px; }
+}
+
+/* スマホ横向き: 再生画面を表示領域の高さいっぱいに（4:3 固定だと小さくなるため） */
+@media (max-width: 900px) and (orientation: landscape) {
+  .stage { aspect-ratio: auto; height: calc(100vh - 24px); height: calc(100svh - 24px); max-height: none; }
 }

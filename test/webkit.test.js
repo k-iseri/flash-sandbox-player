@@ -79,6 +79,21 @@ try {
     if (errors.length) console.log(`      ブラウザエラー: ${errors.slice(0, 5).join(" | ").slice(0, 400)}`);
     await context.close();
   }
+
+  // iPhone 横向き: 再生画面が表示領域の高さいっぱいになり、音声ヒントはタッチ端末でのみ出る
+  {
+    const context = await browser.newContext({ ...devices["iPhone 13 landscape"] });
+    const page = await context.newPage();
+    await page.goto(BASE_URL + (BASE_URL.includes("?") ? "&test" : "?test"));
+    await page.waitForFunction(() => window.__swfPlayer, null, { timeout: 15000 });
+    await page.evaluate(() => window.__swfPlayer.setLanguage("ja"));
+    await page.setInputFiles("#fileInput", sample("ok-red-square-cws.swf"));
+    let st = "";
+    for (let i = 0; i < 80; i++) { st = await page.evaluate(() => document.getElementById("status").textContent); if (st.startsWith("再生中") || st.includes("エラー")) break; await page.waitForTimeout(250); }
+    const r = await page.evaluate(() => { const b = document.getElementById("stage").getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), iw: innerWidth, ih: innerHeight }; });
+    check("[iPhone 横向き] 再生画面が表示領域の高さいっぱいになる", st.startsWith("再生中") && r.h >= r.ih - 30 && r.w >= r.iw - 40, JSON.stringify(r));
+    await context.close();
+  }
 } finally {
   await browser.close();
 }
