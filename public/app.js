@@ -765,10 +765,10 @@ function applyLayout() {
   layoutMode = mode;
   const g = (id) => $(id);
   if (mode === "mobile") {
-    layoutEl.append(g("dropzone"), g("result"), g("stage"), g("stagebar"), g("audioHint"), g("fontPanel"), g("controlPanel"), g("policyPanel"));
+    layoutEl.append(g("dropzone"), g("result"), g("stage"), g("stagebar"), g("audioHint"), g("fontPanel"), g("controlPanel"), g("rulesPanel"));
     leftEl.hidden = true; rightEl.hidden = true;
   } else {
-    leftEl.append(g("dropzone"), g("result"), g("fontPanel"), g("controlPanel"), g("policyPanel"));
+    leftEl.append(g("dropzone"), g("result"), g("fontPanel"), g("controlPanel"), g("rulesPanel"));
     rightEl.append(g("stage"), g("stagebar"), g("audioHint"));
     leftEl.hidden = false; rightEl.hidden = false;
   }
