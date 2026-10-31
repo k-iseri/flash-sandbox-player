@@ -384,11 +384,11 @@ async function main() {
     const r = (id) => document.getElementById(id).getBoundingClientRect();
     const dz = r('dropzone'), stg = r('stage'), res = r('result');
     return { sw: document.documentElement.scrollWidth, iw: innerWidth, sh: document.documentElement.scrollHeight, ih: innerHeight,
-      order: dz.top < stg.top && stg.top < res.top, stageW: Math.round(stg.width), stageH: Math.round(stg.height),
+      order: dz.top < res.top && res.top < stg.top, stageW: Math.round(stg.width), stageH: Math.round(stg.height),
       fsBtn: !document.getElementById('fullscreenBtn').classList.contains('hidden'), playing: ${JSON.stringify(st.startsWith("再生中"))} };
   })())`));
   check("スマホ幅で横スクロールが出ない", mobile.sw <= mobile.iw, JSON.stringify(mobile));
-  check("スマホ幅でページ全体がスクロールでき、ドロップ領域 → 再生画面 → 検査結果の順に並ぶ", mobile.sh > mobile.ih && mobile.order && mobile.playing, JSON.stringify(mobile));
+  check("スマホ幅でページ全体がスクロールでき、ドロップ領域 → 検査結果 → 再生画面の順に並ぶ", mobile.sh > mobile.ih && mobile.order && mobile.playing, JSON.stringify(mobile));
   check("スマホ幅で再生画面が 4:3 で画面幅いっぱい", mobile.stageW >= mobile.iw - 40 && Math.abs(mobile.stageW / mobile.stageH - 4 / 3) < 0.05, `${mobile.stageW}x${mobile.stageH}`);
   await shotTo("mobile.png");
   await cdp.send("Emulation.clearDeviceMetricsOverride", {}, page);

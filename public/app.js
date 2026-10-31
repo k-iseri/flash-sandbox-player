@@ -604,6 +604,7 @@ window.addEventListener("message", (e) => {
       break;
     case "loaded":
       setStatus("st.playing", { name: current?.name ?? "" }, false, true);
+      if (layoutMode === "mobile") stage.scrollIntoView({ block: "nearest", behavior: "smooth" });
       break;
     case "error":
       setStatus("st.playError", { msg: String(msg.message).slice(0, 300) }, true);
@@ -738,6 +739,31 @@ async function handleDroppedFiles(files) {
   const swf = list.find((f) => /\.swf$/i.test(f.name)) || list.find((f) => !FONT_EXT_RE.test(f.name));
   if (swf) await handleFile(swf);
 }
+
+// ---- レイアウト（PC は 2 カラム、スマホは 1 カラム） -----------------------------------
+// スマホでは「ファイルを選択」の直下に検査結果、その下に再生画面が来るよう DOM を並べ替える。
+// （display: contents + order は Safari で挙動が不安定なため使わない）
+const layoutEl = document.querySelector(".layout");
+const leftEl = document.querySelector(".left");
+const rightEl = document.querySelector(".right");
+const mobileMq = window.matchMedia("(max-width: 900px)");
+let layoutMode = null;
+function applyLayout() {
+  const mode = mobileMq.matches ? "mobile" : "desktop";
+  if (mode === layoutMode) return;
+  layoutMode = mode;
+  const g = (id) => $(id);
+  if (mode === "mobile") {
+    layoutEl.append(g("dropzone"), g("result"), g("stage"), g("stagebar"), g("audioHint"), g("fontPanel"), g("controlPanel"), g("policyPanel"));
+    leftEl.hidden = true; rightEl.hidden = true;
+  } else {
+    leftEl.append(g("dropzone"), g("result"), g("fontPanel"), g("controlPanel"), g("policyPanel"));
+    rightEl.append(g("stage"), g("stagebar"), g("audioHint"));
+    leftEl.hidden = false; rightEl.hidden = false;
+  }
+}
+mobileMq.addEventListener("change", applyLayout);
+applyLayout();
 
 // ---- 言語 -----------------------------------------------------------------------
 function initLanguage() {
