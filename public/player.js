@@ -24,17 +24,19 @@
     audioUnlocked = true;
     try { if ("audioSession" in navigator) navigator.audioSession.type = "playback"; } catch { /* ignore */ }
     try {
-      const rate = 8000, n = 800; // 0.1 秒の無音
-      const buf = new ArrayBuffer(44 + n);
+      // 16bit / 44.1kHz の完全な無音を 20ms だけ。短く・デコード精度の高い形式にして「ブッ」という音が出にくくする
+      const rate = 44100, n = Math.round(rate * 0.02);
+      const buf = new ArrayBuffer(44 + n * 2);
       const v = new DataView(buf);
       const str = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
-      str(0, "RIFF"); v.setUint32(4, 36 + n, true); str(8, "WAVE"); str(12, "fmt "); v.setUint32(16, 16, true);
-      v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, rate, true); v.setUint32(28, rate, true);
-      v.setUint16(32, 1, true); v.setUint16(34, 8, true); str(36, "data"); v.setUint32(40, n, true);
-      for (let i = 0; i < n; i++) v.setUint8(44 + i, 128);
+      str(0, "RIFF"); v.setUint32(4, 36 + n * 2, true); str(8, "WAVE"); str(12, "fmt "); v.setUint32(16, 16, true);
+      v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true);
+      v.setUint16(32, 2, true); v.setUint16(34, 16, true); str(36, "data"); v.setUint32(40, n * 2, true);
+      // サンプルはすべて 0（ArrayBuffer の初期値）
       const url = URL.createObjectURL(new Blob([buf], { type: "audio/wav" }));
       const el = new Audio(url);
       el.setAttribute("playsinline", "");
+      el.volume = 0.01; // iOS では無視されるが、他ブラウザでの保険
       const done = () => { URL.revokeObjectURL(url); };
       el.play().then(done, done);
     } catch { /* ignore */ }
