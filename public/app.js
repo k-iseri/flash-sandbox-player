@@ -24,6 +24,7 @@ const stopBtn = $("stopBtn");
 const stage = $("stage");
 const placeholder = $("stagePlaceholder");
 const statusEl = $("status");
+const fullscreenBtn = $("fullscreenBtn");
 const langSelect = $("langSelect");
 // フォント設定 UI
 const fontPanel = $("fontPanel");
@@ -569,6 +570,7 @@ function destroyFrame() {
   frameReady = null;
   placeholder.classList.remove("hidden");
   stopBtn.classList.add("hidden");
+  fullscreenBtn.classList.add("hidden");
 }
 
 function createFrame() {
@@ -585,6 +587,7 @@ function createFrame() {
   frame = f;
   placeholder.classList.add("hidden");
   stopBtn.classList.remove("hidden");
+  if (document.fullscreenEnabled || document.webkitFullscreenEnabled) fullscreenBtn.classList.remove("hidden");
   return ready;
 }
 
@@ -784,6 +787,11 @@ $("clearPad").addEventListener("click", () => { settings.gamepad = {}; saveSetti
 playWarnBtn.addEventListener("click", () => { playWarnBtn.classList.add("hidden"); play(); });
 consentBtn.addEventListener("click", () => { consentBtn.classList.add("hidden"); play(); });
 stopBtn.addEventListener("click", () => { destroyFrame(); setStatus("st.stopped"); });
+fullscreenBtn.addEventListener("click", () => {
+  if (!frame) return;
+  const req = frame.requestFullscreen || frame.webkitRequestFullscreen;
+  if (req) req.call(frame).catch?.(() => {});
+});
 
 initLanguage();
 loadSettings();

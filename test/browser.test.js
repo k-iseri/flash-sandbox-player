@@ -372,6 +372,28 @@ async function main() {
   const warnBtnVisible = await evalIn(cdp, page, "!document.getElementById('playWarnBtn').classList.contains('hidden')");
   check("警告 SWF は自動再生せず確認ボタンを表示", (await badge()) === "警告あり" && warnBtnVisible && !(await hasFrame()));
 
+  // 11) スマートフォン表示: 1 カラムでページ全体がスクロールでき、横はみ出しがなく、再生画面がドロップ領域の直下に来る
+  await cdp.send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true }, page);
+  await cdp.send("Emulation.setTouchEmulationEnabled", { enabled: true }, page);
+  await cdp.send("Page.reload", {}, page);
+  await sleep(1500);
+  await evalIn(cdp, page, "window.__swfPlayer.setLanguage('ja')");
+  await dropFile("ok-red-square-cws.swf");
+  st = await waitPlaying();
+  const mobile = JSON.parse(await evalIn(cdp, page, `JSON.stringify((() => {
+    const r = (id) => document.getElementById(id).getBoundingClientRect();
+    const dz = r('dropzone'), stg = r('stage'), res = r('result');
+    return { sw: document.documentElement.scrollWidth, iw: innerWidth, sh: document.documentElement.scrollHeight, ih: innerHeight,
+      order: dz.top < stg.top && stg.top < res.top, stageW: Math.round(stg.width), stageH: Math.round(stg.height),
+      fsBtn: !document.getElementById('fullscreenBtn').classList.contains('hidden'), playing: ${JSON.stringify(st.startsWith("再生中"))} };
+  })())`));
+  check("スマホ幅で横スクロールが出ない", mobile.sw <= mobile.iw, JSON.stringify(mobile));
+  check("スマホ幅でページ全体がスクロールでき、ドロップ領域 → 再生画面 → 検査結果の順に並ぶ", mobile.sh > mobile.ih && mobile.order && mobile.playing, JSON.stringify(mobile));
+  check("スマホ幅で再生画面が 4:3 で画面幅いっぱい", mobile.stageW >= mobile.iw - 40 && Math.abs(mobile.stageW / mobile.stageH - 4 / 3) < 0.05, `${mobile.stageW}x${mobile.stageH}`);
+  await shotTo("mobile.png");
+  await cdp.send("Emulation.clearDeviceMetricsOverride", {}, page);
+  await cdp.send("Emulation.setTouchEmulationEnabled", { enabled: false }, page);
+
   // CSP 違反などのログを表示
   const interesting = logs.filter((l) => /Content Security Policy|Refused|SecurityError|wasm|panic|error/i.test(l));
   if (interesting.length) { console.log("\n--- ブラウザログ（抜粋） ---"); for (const l of interesting.slice(0, 30)) console.log(l); }

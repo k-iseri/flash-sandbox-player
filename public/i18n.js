@@ -198,6 +198,7 @@ S.ja = {
   "gp.dpad-down": "十字キー 下",
   "gp.dpad-left": "十字キー 左",
   "gp.dpad-right": "十字キー 右",
+  "btn.fullscreen": "全画面",
 };
 
 S.en = {
@@ -383,6 +384,7 @@ S.en = {
   "gp.dpad-down": "D-pad down",
   "gp.dpad-left": "D-pad left",
   "gp.dpad-right": "D-pad right",
+  "btn.fullscreen": "Fullscreen",
 };
 
 S["zh-Hans"] = {
@@ -568,6 +570,7 @@ S["zh-Hans"] = {
   "gp.dpad-down": "方向键 下",
   "gp.dpad-left": "方向键 左",
   "gp.dpad-right": "方向键 右",
+  "btn.fullscreen": "全屏",
 };
 
 S["zh-Hant"] = {
@@ -753,6 +756,7 @@ S["zh-Hant"] = {
   "gp.dpad-down": "方向鍵 下",
   "gp.dpad-left": "方向鍵 左",
   "gp.dpad-right": "方向鍵 右",
+  "btn.fullscreen": "全螢幕",
 };
 
 S.ko = {
@@ -938,6 +942,7 @@ S.ko = {
   "gp.dpad-down": "십자키 아래",
   "gp.dpad-left": "십자키 왼쪽",
   "gp.dpad-right": "십자키 오른쪽",
+  "btn.fullscreen": "전체 화면",
 };
 
 S.es = {
@@ -1123,6 +1128,7 @@ S.es = {
   "gp.dpad-down": "Cruceta abajo",
   "gp.dpad-left": "Cruceta izquierda",
   "gp.dpad-right": "Cruceta derecha",
+  "btn.fullscreen": "Pantalla completa",
 };
 
 S.fr = {
@@ -1308,6 +1314,7 @@ S.fr = {
   "gp.dpad-down": "Croix bas",
   "gp.dpad-left": "Croix gauche",
   "gp.dpad-right": "Croix droite",
+  "btn.fullscreen": "Plein écran",
 };
 
 S.de = {
@@ -1493,6 +1500,7 @@ S.de = {
   "gp.dpad-down": "Steuerkreuz unten",
   "gp.dpad-left": "Steuerkreuz links",
   "gp.dpad-right": "Steuerkreuz rechts",
+  "btn.fullscreen": "Vollbild",
 };
 
 S.pt = {
@@ -1678,6 +1686,7 @@ S.pt = {
   "gp.dpad-down": "Direcional baixo",
   "gp.dpad-left": "Direcional esquerda",
   "gp.dpad-right": "Direcional direita",
+  "btn.fullscreen": "Tela cheia",
 };
 
 S.ru = {
@@ -1863,6 +1872,7 @@ S.ru = {
   "gp.dpad-down": "Крестовина вниз",
   "gp.dpad-left": "Крестовина влево",
   "gp.dpad-right": "Крестовина вправо",
+  "btn.fullscreen": "Во весь экран",
 };
 
 export const STRINGS = S;
