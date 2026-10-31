@@ -479,6 +479,7 @@ function updateFontSummary() {
 function setStatus(key, params = null, isError = false, withNotes = false) {
   lastStatus = { key, params, isError, withNotes };
   statusEl.textContent = key ? t(key, params) + (withNotes ? notesText() : "") : "";
+  statusEl.title = statusEl.textContent;
   statusEl.classList.toggle("error", isError);
 }
 

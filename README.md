@@ -25,6 +25,8 @@ npm start       # http://127.0.0.1:8787/ で起動
 2. Vercel のダッシュボードで **Add New → Project** からリポジトリを取り込む（Framework Preset は Other のまま）。`vercel.json` の `buildCommand`（`npm run build`）と `outputDirectory`（`dist`）が自動で使われる。
 3. Deploy を押す。以降は `main` への push ごとに自動デプロイされる。
 
+独自ドメインで公開する場合は、`vercel.json` の `/player.html` の CSP に書かれている `https://flash-sandbox-player.vercel.app` をそのドメインに置き換えてください（Safari はサンドボックス iframe 内で CSP の `'self'` を解決できないことがあるため、オリジンを明示しています）。
+
 CLI を使う場合は `npx vercel`（初回はログインとプロジェクト作成の対話）→ `npx vercel --prod`。
 
 手元で Vercel と同じヘッダーで確認するには次を実行します。

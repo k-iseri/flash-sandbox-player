@@ -180,10 +180,9 @@ const server = http.createServer((req, res) => {
     };
 
     if (isRuffleAsset) {
-      // sandbox iframe は opaque origin（Origin: null）なので、wasm の fetch にだけ CORS を許可する。
-      // 通常のサイト（Origin がある）からの取得には CORS ヘッダーを返さない
-      if (req.headers.origin === "null") headers["Access-Control-Allow-Origin"] = "null";
-      headers["Vary"] = "Origin";
+      // sandbox iframe は opaque origin（Origin: null）から wasm を fetch する。
+      // Safari は Access-Control-Allow-Origin: null を受け付けないことがあるため、公開ライブラリとして * を返す
+      headers["Access-Control-Allow-Origin"] = "*";
       headers["Cross-Origin-Resource-Policy"] = "cross-origin";
     } else if (isFont) {
       headers["Cross-Origin-Resource-Policy"] = "same-origin";

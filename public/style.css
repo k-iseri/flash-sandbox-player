@@ -245,7 +245,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.status.error { color: var(--bad); }
+.status.error { color: var(--bad); white-space: normal; overflow: visible; text-overflow: clip; word-break: break-word; }
 
 /* 操作設定 */
 .keymap { display: grid; grid-template-columns: 1fr 1fr auto; gap: 4px 8px; align-items: center; font-size: 13px; }
