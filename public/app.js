@@ -552,6 +552,7 @@ function renderFindings(findings) {
 // 言語切り替え時に、表示中の内容をすべて描き直す
 function rerenderAll() {
   applyTranslations();
+  applyDropzoneText();
   if (lastReport) {
     if (lastReport.info) renderInfo(lastReport.info, lastSize);
     renderFindings(lastReport.findings);
@@ -778,12 +779,25 @@ window.matchMedia("(orientation: landscape)").addEventListener("change", (e) => 
 });
 applyLayout();
 
+// 設定パネルを開いたとき、内容が左カラムの見えない位置にあれば見える位置までスクロールする
+// （Firefox はスクロールバーが隠れていて、開いても気付けないことがある）
+for (const d of document.querySelectorAll("details.card")) {
+  d.addEventListener("toggle", () => { if (d.open) requestAnimationFrame(() => d.scrollIntoView({ block: "nearest", behavior: "smooth" })); });
+}
+
+// タッチ端末（スマホ）ではドラッグ＆ドロップできないので、見出しを「SWF ファイルを開く」に差し替える
+function applyDropzoneText() {
+  const el = document.querySelector(".dz-title");
+  if (el && layoutMode === "mobile" && navigator.maxTouchPoints > 0) el.textContent = t("dz.titleTouch");
+}
+
 // ---- 言語 -----------------------------------------------------------------------
 function initLanguage() {
   langSelect.replaceChildren(...LANGS.map(([code, label]) => el("option", { value: code }, label)));
   setLang(detectLang());
   langSelect.value = getLang();
   applyTranslations();
+  applyDropzoneText();
   document.documentElement.classList.remove("i18n-pending"); // 翻訳が終わってから表示（日本語が一瞬見えるのを防ぐ）
   langSelect.addEventListener("change", () => { setLang(langSelect.value); rerenderAll(); });
 }

@@ -70,6 +70,9 @@ body {
   min-height: 0;
   overflow-y: auto;
   padding-right: 4px;
+  /* Firefox はオーバーレイスクロールバーを隠すため、色を指定して常時表示にする */
+  scrollbar-width: thin;
+  scrollbar-color: #b9c2d0 transparent;
 }
 .right {
   min-height: 0;
@@ -287,8 +290,10 @@ body.pseudo-full { overflow: hidden; }
   .langbox { margin-top: 0; }
   .layout { display: flex; flex-direction: column; gap: 12px; padding: 12px 16px 28px; }
   .left[hidden], .right[hidden] { display: none; }
-  .dropzone { padding: 14px 12px; }
-  .dz-icon { font-size: 24px; }
+  /* スマホではドラッグ＆ドロップできないので、矢印と「または」を省いてボタン中心の簡潔な表示にする */
+  .dropzone { padding: 12px; }
+  .dz-icon, .dz-or { display: none; }
+  .dz-title { margin: 0 0 8px; font-size: 15px; }
   .stage { flex: none; height: auto; min-height: 0; aspect-ratio: 4 / 3; max-height: 62vh; }
   .stagebar, .audiohint { margin: 0; }
   .status { white-space: normal; }
