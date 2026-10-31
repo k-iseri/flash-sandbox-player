@@ -794,6 +794,11 @@ fullscreenBtn.addEventListener("click", () => {
   if (req) req.call(frame).catch?.(() => {});
 });
 
+// iOS Safari は accept の拡張子指定（.swf / .ttf など）を解釈できず、該当ファイルがグレーアウトして選べない。
+// iOS ではフィルターを外し、中身はスキャナー（シグネチャ検査）とフォント名の解析で判定する
+const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+if (isIOS) { fileInput.removeAttribute("accept"); fontInput.removeAttribute("accept"); }
+
 initLanguage();
 loadSettings();
 if (!Array.isArray(settings.keymap)) settings.keymap = [];
