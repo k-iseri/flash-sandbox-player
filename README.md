@@ -133,6 +133,8 @@ Ruffle は Latin-1 として解釈するため「uƒqƒbƒgv‚Í…」のよう
 npm test                     # スキャナーの単体テスト（合成 SWF 44 ケース）
 npm start &                  # サーバーを起動しておいてから
 node test/browser.test.js    # ヘッドレス Chrome/Edge による E2E（再生・隔離・拒否を確認）
+npm i --no-save playwright && npx playwright install webkit
+node test/webkit.test.js     # WebKit（Safari 相当）でファイル選択・再生・同意フローを確認（--url で本番も可）
 ```
 
 `npm test` を実行すると `test/samples/` に動作確認用の SWF（良性 / 拒否 / 警告）が生成されます。

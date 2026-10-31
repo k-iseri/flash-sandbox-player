@@ -8,7 +8,8 @@
     "start": "node server.js",
     "test": "node test/scanner.test.js",
     "build": "node scripts/build.mjs",
-    "serve:dist": "node scripts/serve-dist.mjs"
+    "serve:dist": "node scripts/serve-dist.mjs",
+    "test:webkit": "node test/webkit.test.js"
   },
   "dependencies": {
     "@ruffle-rs/ruffle": "latest",

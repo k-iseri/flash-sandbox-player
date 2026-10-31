@@ -785,7 +785,9 @@ function initLanguage() {
 document.addEventListener("drop", (e) => {
   handleDroppedFiles(e.dataTransfer?.files).catch((err) => setStatus("st.error", { msg: err.message }, true));
 });
-dropzone.addEventListener("click", () => fileInput.click());
+// 「ファイルを選択」ラベル（中に input がある）のクリックはブラウザが自動でピッカーを開く。
+// そのクリックはここにもバブルしてくるので、二重に fileInput.click() しない（Safari ではピッカーがキャンセルされる）
+dropzone.addEventListener("click", (e) => { if (e.target.closest("label, input")) return; fileInput.click(); });
 dropzone.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
 fileInput.addEventListener("change", () => {
   const file = fileInput.files?.[0];
