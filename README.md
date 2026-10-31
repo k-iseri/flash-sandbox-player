@@ -17,7 +17,24 @@ npm start       # http://127.0.0.1:8787/ で起動
 
 表示言語は右上のセレクトで切り替えられます（日本語・英語・簡体字・繁体字・韓国語・スペイン語・フランス語・ドイツ語・ポルトガル語・ロシア語）。初回はブラウザの言語設定から自動選択され、選択はブラウザに記憶されます。文言は `public/i18n.js` にまとめてあり、言語を追加する場合はそこに辞書を足すだけです。
 
-### サーバーへのデプロイ
+### Vercel へのデプロイ
+
+静的サイトとしてデプロイします。`vercel.json` にビルド設定と CSP などのヘッダーを定義済みです。
+
+1. GitHub にこのリポジトリを push する。
+2. Vercel のダッシュボードで **Add New → Project** からリポジトリを取り込む（Framework Preset は Other のまま）。`vercel.json` の `buildCommand`（`npm run build`）と `outputDirectory`（`dist`）が自動で使われる。
+3. Deploy を押す。以降は `main` への push ごとに自動デプロイされる。
+
+CLI を使う場合は `npx vercel`（初回はログインとプロジェクト作成の対話）→ `npx vercel --prod`。
+
+手元で Vercel と同じヘッダーで確認するには次を実行します。
+
+```bash
+npm run build          # dist/ を生成（public + Ruffle + LZMA + fonts + fonts.json）
+npm run serve:dist     # http://127.0.0.1:8787/ で vercel.json のヘッダーを適用して配信
+```
+
+### 自前サーバーへのデプロイ
 
 既定では 127.0.0.1 にしかバインドしません。公開する場合は次のようにします。
 

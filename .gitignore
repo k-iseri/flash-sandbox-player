@@ -3,3 +3,4 @@ test/samples/
 fonts/*
 !fonts/README.md
 !fonts/BIZ-UDGothicR.ttc
+dist/
