@@ -730,7 +730,7 @@ async function handleFile(file) {
   if (report.verdict === "consent") {
     setBadge("consent", "badge.consent");
     consentBtn.classList.remove("hidden");
-    setStatus("st.consent");
+    setStatus(null); // 理由は検査結果に出ているので、長い説明文は出さない
     return;
   }
   if (report.verdict === "warn") {
