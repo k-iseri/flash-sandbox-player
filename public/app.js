@@ -1,9 +1,9 @@
 // ホストページ: D&D → 静的スキャン → sandbox iframe 内の Ruffle へ受け渡し
-import { scanSwf } from "/scanner.js";
-import { rewriteFontNames } from "/swfpatch.js";
-import { convertLegacyEncoding } from "/swfconvert.js";
-import { parseFontNames } from "/fontnames.js";
-import { LANGS, t, has, detectLang, setLang, getLang, applyTranslations } from "/i18n.js";
+import { scanSwf } from "./scanner.js";
+import { rewriteFontNames } from "./swfpatch.js";
+import { convertLegacyEncoding } from "./swfconvert.js";
+import { parseFontNames } from "./fontnames.js";
+import { LANGS, t, has, detectLang, setLang, getLang, applyTranslations } from "./i18n.js";
 
 const MAX_SIZE = 256 * 1024 * 1024;
 const FONT_EXT_RE = /\.(ttf|otf|ttc)$/i;
