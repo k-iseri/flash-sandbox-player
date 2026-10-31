@@ -1,5 +1,5 @@
 {
-  "name": "swf-sandbox-player",
+  "name": "flash-sandbox-player",
   "version": "1.0.0",
   "private": true,
   "description": "Ruffle を使った SWF サンドボックスプレイヤー（ネットワーク/Cookie アクセスを含む SWF は実行しない）",

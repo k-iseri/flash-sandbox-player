@@ -1,4 +1,4 @@
-# SWF Sandbox Player
+# Flash Sandbox Player
 
 サポートの終了した Adobe Flash の SWF ファイルを、ブラウザにドラッグ＆ドロップするだけで再生できるプレイヤーです。手元の PC でもサーバー上でも動かせます。
 再生エンジンには [Ruffle](https://ruffle.rs) を使い、**外部サイトへの通信や Cookie（SharedObject）へのアクセスを行う SWF は実行しません**。

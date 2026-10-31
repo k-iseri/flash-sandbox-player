@@ -4,23 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <title>SWF Sandbox Player</title>
+  <title>Flash Sandbox Player</title>
   <meta name="description" content="Flash (SWF) をブラウザで安全に再生。検査してから、通信を遮断したサンドボックスで Ruffle を実行します。Play Flash (SWF) files safely in your browser: inspected first, then run in a network-isolated Ruffle sandbox.">
   <meta name="theme-color" content="#2f6fed">
   <link rel="canonical" href="https://flash-sandbox-player.vercel.app/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="SWF Sandbox Player">
-  <meta property="og:title" content="SWF Sandbox Player – Flash (SWF) をブラウザで安全に再生">
+  <meta property="og:site_name" content="Flash Sandbox Player">
+  <meta property="og:title" content="Flash Sandbox Player – Flash (SWF) をブラウザで安全に再生">
   <meta property="og:description" content="検査してから、通信を遮断したサンドボックスで Ruffle を実行。通信・Cookie・外部連携を含む SWF は実行しません。Inspect first, then play in a network-isolated sandbox.">
   <meta property="og:url" content="https://flash-sandbox-player.vercel.app/">
   <meta property="og:image" content="https://flash-sandbox-player.vercel.app/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="SWF Sandbox Player – powered by Ruffle">
+  <meta property="og:image:alt" content="Flash Sandbox Player – powered by Ruffle">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SWF Sandbox Player">
+  <meta name="twitter:title" content="Flash Sandbox Player">
   <meta name="twitter:description" content="Flash (SWF) をブラウザで安全に再生。検査してから、通信を遮断したサンドボックスで実行します。">
   <meta name="twitter:image" content="https://flash-sandbox-player.vercel.app/og.png">
   <link rel="icon" href="data:,">
@@ -29,7 +29,7 @@
 <body>
   <header class="topbar">
     <div class="topbar-text">
-      <h1>SWF Sandbox Player <span class="sub">powered by Ruffle</span></h1>
+      <h1>Flash Sandbox Player <span class="sub">powered by Ruffle</span></h1>
       <p class="tagline" data-i18n="tagline">SWF ファイルをドラッグ＆ドロップすると、検査してから安全な設定で再生します。</p>
     </div>
     <label class="langbox">
@@ -48,6 +48,7 @@
           <span data-i18n="dz.select">ファイルを選択</span>
           <input id="fileInput" type="file" accept=".swf,application/x-shockwave-flash" hidden>
         </label>
+        <p class="dz-sample"><a href="./samples/sound-test.swf" download="sound-test.swf" data-i18n="dz.soundTest">音のテスト用 SWF（440Hz の音が 1.5 秒鳴ります）</a></p>
       </div>
 
       <section id="result" class="card hidden" aria-live="polite">

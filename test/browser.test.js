@@ -15,7 +15,7 @@ const args = process.argv.slice(2);
 const argOf = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
 
 const BASE_URL = argOf("--url", "http://127.0.0.1:8787/");
-const OUT_DIR = argOf("--out", path.join(os.tmpdir(), "swf-sandbox-player-test"));
+const OUT_DIR = argOf("--out", path.join(os.tmpdir(), "flash-sandbox-player-test"));
 const BROWSER = argOf("--browser", [
   "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
@@ -131,7 +131,7 @@ async function main() {
   await cdp.send("Page.navigate", { url: BASE_URL }, page);
   await sleep(1500);
   const title = await evalIn(cdp, page, "document.title");
-  if (title !== "SWF Sandbox Player") throw new Error(`ページを開けません: title=${title}`);
+  if (title !== "Flash Sandbox Player") throw new Error(`ページを開けません: title=${title}`);
   // テストは日本語の文言を前提にしているので、ヘッドレス環境の言語に関わらず日本語に固定する
   await evalIn(cdp, page, "window.__swfPlayer.setLanguage('ja')");
 

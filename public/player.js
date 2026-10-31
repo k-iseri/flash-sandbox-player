@@ -15,6 +15,32 @@
   // iOS 17+ / Safari: Web Audio をサイレントスイッチの影響を受けない「再生」カテゴリにする（Ruffle も同じ設定をするが先に行う）
   try { if ("audioSession" in navigator) navigator.audioSession.type = "playback"; } catch { /* ignore */ }
 
+  // iOS では、ユーザー操作中に HTML の <audio> を一度再生すると音声セッションが「再生」に切り替わり、
+  // サイレントスイッチが入っていても Web Audio が鳴るようになる（audioSession API が無い iOS 16 以前の対策）。
+  // Ruffle は audioSession がある環境ではこの処理を省くが、iframe 内では効かない可能性があるため自前でも行う。
+  let audioUnlocked = false;
+  function unlockAudio() {
+    if (audioUnlocked) return;
+    audioUnlocked = true;
+    try { if ("audioSession" in navigator) navigator.audioSession.type = "playback"; } catch { /* ignore */ }
+    try {
+      const rate = 8000, n = 800; // 0.1 秒の無音
+      const buf = new ArrayBuffer(44 + n);
+      const v = new DataView(buf);
+      const str = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+      str(0, "RIFF"); v.setUint32(4, 36 + n, true); str(8, "WAVE"); str(12, "fmt "); v.setUint32(16, 16, true);
+      v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, rate, true); v.setUint32(28, rate, true);
+      v.setUint16(32, 1, true); v.setUint16(34, 8, true); str(36, "data"); v.setUint32(40, n, true);
+      for (let i = 0; i < n; i++) v.setUint8(44 + i, 128);
+      const url = URL.createObjectURL(new Blob([buf], { type: "audio/wav" }));
+      const el = new Audio(url);
+      el.setAttribute("playsinline", "");
+      const done = () => { URL.revokeObjectURL(url); };
+      el.play().then(done, done);
+    } catch { /* ignore */ }
+  }
+  for (const ev of ["touchend", "click", "keydown"]) document.addEventListener(ev, unlockAudio, { capture: true, passive: true });
+
   // Ruffle のミュート解除オーバーレイ（音声コンテキストが suspended の間だけ表示される）を監視し、親に状態を知らせる
   let audioTimer = null;
   function watchAudio() {

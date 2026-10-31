@@ -93,6 +93,8 @@ body {
 .dz-icon { font-size: 30px; color: var(--accent); line-height: 1; }
 .dz-title { font-size: 16px; font-weight: 600; margin: 6px 0 2px; }
 .dz-or { color: var(--muted); margin: 2px 0 8px; font-size: 13px; }
+.dz-sample { margin: 10px 0 0; font-size: 12px; }
+.dz-sample a { color: var(--muted); text-decoration: underline; }
 
 .btn {
   display: inline-block;

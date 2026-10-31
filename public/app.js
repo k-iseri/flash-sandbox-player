@@ -834,6 +834,9 @@ fullscreenBtn.addEventListener("click", () => {
 const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 if (isIOS) { fileInput.removeAttribute("accept"); fontInput.removeAttribute("accept"); }
 
+// iOS 17+ / Safari 17+: ページの音声セッションを「再生」にして、サイレントスイッチの影響を受けないようにする
+try { if ("audioSession" in navigator) navigator.audioSession.type = "playback"; } catch { /* ignore */ }
+
 initLanguage();
 loadSettings();
 if (!Array.isArray(settings.keymap)) settings.keymap = [];

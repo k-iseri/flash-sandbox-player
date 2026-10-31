@@ -203,6 +203,6 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-  console.log(`SWF Sandbox Player: http://${HOST}:${PORT}/`);
+  console.log(`Flash Sandbox Player: http://${HOST}:${PORT}/`);
   console.log(HOST === "127.0.0.1" || HOST === "localhost" ? "(ローカルのみ待ち受け。公開する場合は HOST=0.0.0.0 を指定し、HTTPS のリバースプロキシ配下で運用してください)" : "(外部からの接続を受け付けています)");
 });

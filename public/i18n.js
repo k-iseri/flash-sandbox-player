@@ -201,6 +201,7 @@ S.ja = {
   "btn.fullscreen": "全画面",
   "st.audioSuspended": "音声はまだ有効になっていません。再生画面を一度クリックすると有効になります。",
   "st.audioSuspendedTouch": "音声はまだ有効になっていません。再生画面を一度タップすると有効になります。iPhone / iPad で音が出ない場合は、本体横のサイレントスイッチと音量も確認してください。",
+  "dz.soundTest": "音のテスト用 SWF（440Hz の音が 1.5 秒鳴ります）",
 };
 
 S.en = {
@@ -389,6 +390,7 @@ S.en = {
   "btn.fullscreen": "Fullscreen",
   "st.audioSuspended": "Audio is not enabled yet. Click the player once to enable it.",
   "st.audioSuspendedTouch": "Audio is not enabled yet. Tap the player once to enable it. On iPhone / iPad, also check the silent switch and the volume.",
+  "dz.soundTest": "Sound test SWF (plays a 440 Hz tone for 1.5 s)",
 };
 
 S["zh-Hans"] = {
@@ -577,6 +579,7 @@ S["zh-Hans"] = {
   "btn.fullscreen": "全屏",
   "st.audioSuspended": "音频尚未启用。点击一次播放画面即可启用。",
   "st.audioSuspendedTouch": "音频尚未启用。点按一次播放画面即可启用。iPhone / iPad 没有声音时，请同时检查静音开关和音量。",
+  "dz.soundTest": "声音测试用 SWF（播放 1.5 秒的 440 Hz 音）",
 };
 
 S["zh-Hant"] = {
@@ -765,6 +768,7 @@ S["zh-Hant"] = {
   "btn.fullscreen": "全螢幕",
   "st.audioSuspended": "音訊尚未啟用。點一下播放畫面即可啟用。",
   "st.audioSuspendedTouch": "音訊尚未啟用。點一下播放畫面即可啟用。iPhone / iPad 沒有聲音時，請同時檢查靜音開關和音量。",
+  "dz.soundTest": "聲音測試用 SWF（播放 1.5 秒的 440 Hz 音）",
 };
 
 S.ko = {
@@ -953,6 +957,7 @@ S.ko = {
   "btn.fullscreen": "전체 화면",
   "st.audioSuspended": "오디오가 아직 켜지지 않았습니다. 재생 화면을 한 번 클릭하면 켜집니다.",
   "st.audioSuspendedTouch": "오디오가 아직 켜지지 않았습니다. 재생 화면을 한 번 탭하면 켜집니다. iPhone / iPad에서 소리가 나지 않으면 무음 스위치와 음량도 확인하세요.",
+  "dz.soundTest": "소리 테스트용 SWF(440 Hz 음이 1.5초 재생)",
 };
 
 S.es = {
@@ -1141,6 +1146,7 @@ S.es = {
   "btn.fullscreen": "Pantalla completa",
   "st.audioSuspended": "El audio aún no está activado. Haz clic una vez en el reproductor para activarlo.",
   "st.audioSuspendedTouch": "El audio aún no está activado. Toca una vez el reproductor para activarlo. En iPhone / iPad, comprueba también el interruptor de silencio y el volumen.",
+  "dz.soundTest": "SWF de prueba de sonido (reproduce un tono de 440 Hz durante 1,5 s)",
 };
 
 S.fr = {
@@ -1329,6 +1335,7 @@ S.fr = {
   "btn.fullscreen": "Plein écran",
   "st.audioSuspended": "Le son n'est pas encore activé. Cliquez une fois sur le lecteur pour l'activer.",
   "st.audioSuspendedTouch": "Le son n'est pas encore activé. Touchez une fois le lecteur pour l'activer. Sur iPhone / iPad, vérifiez aussi le commutateur silencieux et le volume.",
+  "dz.soundTest": "SWF de test du son (joue un son de 440 Hz pendant 1,5 s)",
 };
 
 S.de = {
@@ -1517,6 +1524,7 @@ S.de = {
   "btn.fullscreen": "Vollbild",
   "st.audioSuspended": "Der Ton ist noch nicht aktiviert. Klicken Sie einmal auf den Player, um ihn zu aktivieren.",
   "st.audioSuspendedTouch": "Der Ton ist noch nicht aktiviert. Tippen Sie einmal auf den Player, um ihn zu aktivieren. Prüfen Sie auf iPhone / iPad auch den Stummschalter und die Lautstärke.",
+  "dz.soundTest": "Ton-Test-SWF (spielt 1,5 s lang einen 440-Hz-Ton)",
 };
 
 S.pt = {
@@ -1705,6 +1713,7 @@ S.pt = {
   "btn.fullscreen": "Tela cheia",
   "st.audioSuspended": "O áudio ainda não está ativado. Clique uma vez no player para ativá-lo.",
   "st.audioSuspendedTouch": "O áudio ainda não está ativado. Toque uma vez no player para ativá-lo. No iPhone / iPad, verifique também a chave de silêncio e o volume.",
+  "dz.soundTest": "SWF de teste de som (toca um tom de 440 Hz por 1,5 s)",
 };
 
 S.ru = {
@@ -1893,6 +1902,7 @@ S.ru = {
   "btn.fullscreen": "Во весь экран",
   "st.audioSuspended": "Звук ещё не включён. Нажмите один раз на плеер, чтобы включить его.",
   "st.audioSuspendedTouch": "Звук ещё не включён. Коснитесь плеера один раз, чтобы включить его. На iPhone / iPad также проверьте переключатель беззвучного режима и громкость.",
+  "dz.soundTest": "SWF для проверки звука (воспроизводит тон 440 Гц 1,5 с)",
 };
 
 export const STRINGS = S;

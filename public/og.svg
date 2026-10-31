@@ -26,7 +26,7 @@
   <text x="454" y="483" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">実行しません</text>
 
   <!-- テキスト -->
-  <text x="640" y="230" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="64" font-weight="700" fill="#1f2633">SWF Sandbox</text>
+  <text x="640" y="230" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="64" font-weight="700" fill="#1f2633">Flash Sandbox</text>
   <text x="640" y="305" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="64" font-weight="700" fill="#1f2633">Player</text>
   <text x="642" y="360" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="26" fill="#6b7686">powered by Ruffle</text>
   <text x="642" y="430" font-family="Segoe UI, Hiragino Sans, Noto Sans JP, sans-serif" font-size="27" fill="#1f2633">Flash (SWF) をブラウザで安全に再生</text>

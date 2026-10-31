@@ -333,6 +333,15 @@ fs.writeFileSync(path.join(outDir, "consent-sharedobject.swf"), buildSwf([setBg(
 try { fs.unlinkSync(path.join(outDir, "blocked-sharedobject.swf")); } catch { /* none */ }
 fs.writeFileSync(path.join(outDir, "blocked-as3-urlloader.swf"), buildSwf([fileAttrs(0x08), ...benign, doAbc(abc({ strings: ["flash.net", "URLLoader"], namespaces: [1], multinames: [[1, 2]] }))]));
 fs.writeFileSync(path.join(outDir, "ok-jp-devicefont.swf"), jpSwf);
+// 音付きサンプル: 440Hz の正弦波 1.5 秒（DefineSound: 非圧縮 16bit mono 11025Hz）+ StartSound
+{
+  const rate = 11025, secs = 1.5, n = Math.floor(rate * secs);
+  const pcm = [];
+  for (let i = 0; i < n; i++) { const v = Math.round(Math.sin(2 * Math.PI * 440 * i / rate) * 12000 * Math.min(1, (n - i) / 2000)); pcm.push(v & 0xff, (v >> 8) & 0xff); }
+  const defineSound = tag(14, [...u16(2), 0x3a /* format 3 (LE PCM), rate 1 (11kHz), 16bit, mono */, ...u32(n), ...pcm]);
+  const startSound = tag(15, [...u16(2), 0x00]);
+  fs.writeFileSync(path.join(outDir, "ok-sound.swf"), buildSwf([setBg(230, 240, 255), defineShapeRect(1), placeObject2(1, 1), startSound, showFrame()].map((x, i) => i === 1 ? [defineSound, x].flat() : x)));
+}
 fs.writeFileSync(path.join(outDir, "ok-sjis-v5.swf"), sjisV5);
 fs.writeFileSync(path.join(outDir, "warn-fscommand.swf"), buildSwf([...benign, doAction(actionsConstantPool(["fscommand", "fullscreen"]))]));
 console.log(`\nサンプル SWF を ${outDir} に書き出しました`);
