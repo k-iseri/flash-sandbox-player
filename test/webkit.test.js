@@ -48,6 +48,28 @@ try {
     }
     check(`[${label}] WebKit のサンドボックス iframe で Ruffle が再生開始`, st.startsWith("再生中"), st);
 
+    // 2b) 全画面ボタン: 表示され、API が無ければ擬似全画面（画面いっぱい）になり、終了ボタンで戻る
+    const fsVisible = await page.evaluate(() => !document.getElementById("fullscreenBtn").classList.contains("hidden"));
+    check(`[${label}] 全画面ボタンが表示される`, fsVisible);
+    await page.click("#fullscreenBtn");
+    await page.waitForTimeout(400);
+    const fsState = await page.evaluate(() => {
+      // ネイティブ全画面では iframe が、擬似全画面では #stage が画面いっぱいになる
+      const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+      const r = (fsEl || document.getElementById("stage")).getBoundingClientRect();
+      return { pseudo: document.getElementById("stage").classList.contains("pseudo-full"), native: !!fsEl, w: Math.round(r.width), h: Math.round(r.height), iw: innerWidth, ih: innerHeight };
+    });
+    check(`[${label}] 全画面（ネイティブまたは擬似）で再生画面が画面いっぱいになる`, (fsState.native || fsState.pseudo) && fsState.w >= fsState.iw - 2 && fsState.h >= fsState.ih - 2, JSON.stringify(fsState));
+    if (fsState.pseudo) {
+      await page.click("#exitFullBtn");
+      await page.waitForTimeout(300);
+      const back = await page.evaluate(() => !document.getElementById("stage").classList.contains("pseudo-full"));
+      check(`[${label}] 擬似全画面を終了できる`, back);
+    } else if (fsState.native) {
+      await page.evaluate(() => (document.exitFullscreen || document.webkitExitFullscreen).call(document));
+      await page.waitForTimeout(300);
+    }
+
     // 3) 同意フロー
     await page.setInputFiles("#fileInput", sample("consent-geturl.swf"));
     await page.waitForTimeout(500);

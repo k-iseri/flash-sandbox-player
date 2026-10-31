@@ -25,6 +25,7 @@ const stage = $("stage");
 const placeholder = $("stagePlaceholder");
 const statusEl = $("status");
 const fullscreenBtn = $("fullscreenBtn");
+const exitFullBtn = $("exitFullBtn");
 const audioHint = $("audioHint");
 const langSelect = $("langSelect");
 // フォント設定 UI
@@ -574,6 +575,13 @@ function destroyFrame() {
   stopBtn.classList.add("hidden");
   fullscreenBtn.classList.add("hidden");
   audioHint.classList.add("hidden");
+  setPseudoFullscreen(false);
+}
+
+// 擬似全画面（再生画面を fixed で画面いっぱいに。Fullscreen API 非対応の iPhone Safari などで使う）
+function setPseudoFullscreen(on) {
+  stage.classList.toggle("pseudo-full", on);
+  document.body.classList.toggle("pseudo-full", on);
 }
 
 function createFrame() {
@@ -590,7 +598,7 @@ function createFrame() {
   frame = f;
   placeholder.classList.add("hidden");
   stopBtn.classList.remove("hidden");
-  if (document.fullscreenEnabled || document.webkitFullscreenEnabled) fullscreenBtn.classList.remove("hidden");
+  fullscreenBtn.classList.remove("hidden"); // API が無い環境では擬似全画面にフォールバックする
   return ready;
 }
 
@@ -825,9 +833,18 @@ consentBtn.addEventListener("click", () => { consentBtn.classList.add("hidden");
 stopBtn.addEventListener("click", () => { destroyFrame(); setStatus("st.stopped"); });
 fullscreenBtn.addEventListener("click", () => {
   if (!frame) return;
-  const req = frame.requestFullscreen || frame.webkitRequestFullscreen;
-  if (req) req.call(frame).catch?.(() => {});
+  const canNative = (document.fullscreenEnabled || document.webkitFullscreenEnabled) && (frame.requestFullscreen || frame.webkitRequestFullscreen);
+  if (canNative) {
+    const req = frame.requestFullscreen || frame.webkitRequestFullscreen;
+    let p = null;
+    try { p = req.call(frame); } catch { p = Promise.reject(); }
+    Promise.resolve(p).catch(() => setPseudoFullscreen(true));
+  } else {
+    setPseudoFullscreen(true);
+  }
 });
+exitFullBtn.addEventListener("click", () => setPseudoFullscreen(false));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && stage.classList.contains("pseudo-full")) setPseudoFullscreen(false); });
 
 // iOS Safari は accept の拡張子指定（.swf / .ttf など）を解釈できず、該当ファイルがグレーアウトして選べない。
 // iOS ではフィルターを外し、中身はスキャナー（シグネチャ検査）とフォント名の解析で判定する
